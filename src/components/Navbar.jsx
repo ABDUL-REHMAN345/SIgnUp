@@ -47,7 +47,7 @@ const Navbar = () => {
     <AppBar position="sticky">
       <StyledToolbar>
         <Typography variant="h6" sx={{ display: { xs: "none", sm: "block" } }}>
-          MATERIAL UI
+          MATERIAL-UI
         </Typography>
         <Pets sx={{ display: { xs: "block", sm: "none" } }} />
         <Search>
@@ -71,7 +71,7 @@ const Navbar = () => {
             sx={{ width: 30, height: 30 }}
             src="https://images.pexels.com/photos/846741/pexels-photo-846741.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
           />
-          <Typography variant="span">Abdul</Typography>
+          <Typography variant="span">ABDUL</Typography>
         </UserBox>
       </StyledToolbar>
       <Menu
