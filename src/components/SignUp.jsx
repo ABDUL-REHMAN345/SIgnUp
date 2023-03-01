@@ -9,6 +9,7 @@ const MyButton = () => {
   const [open, setOpen] = useState(false);
   const [countryData, setCountryData] = useState([]);
 
+
   const handleButtonClick = async () => {
     // Fetch country data from API
     const response = await fetch('https://restcountries.com/v2/all');
@@ -27,17 +28,16 @@ const MyButton = () => {
     const selectedCountry = formData.get('country');
     console.log(`Selected country: ${selectedCountry}`);
   };
-
   return (
     <>
-      <p  onClick={handleButtonClick}>
+      <p onClick={handleButtonClick}>
         SignUp
       </p>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Select Countries</DialogTitle>
         <DialogContent>
           <form onSubmit={handleFormSubmit}>
-            <TextField  sx={{marginTop:"20px"}}
+            <TextField sx={{ marginTop: "20px" }}
               label="Country"
               name="country"
               select
@@ -55,7 +55,7 @@ const MyButton = () => {
               ))}
             </TextField>
             {/* Add more form fields here */}
-            <Button type="submit"><Form/></Button>
+            <Button type="submit"><Form /></Button>
           </form>
         </DialogContent>
       </Dialog>

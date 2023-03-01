@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Radio from '@mui/material/Radio';
+// import GppGoodRoundedIcon from '@mui/icons-material/GppGoodRounded';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
@@ -17,7 +18,7 @@ import {
     FormControl,
     FormLabel,
     RadioGroup,
-    Checkbox,
+    Checkbox, Dialog, DialogTitle, DialogContent, DialogActions
 } from '@mui/material';
 const style = {
     position: 'absolute',
@@ -35,6 +36,7 @@ const style = {
 
 export default function Test() {
     const [open, setOpen] = React.useState(false);
+    // const [thankYouOpen, setThankYouOpen] = useState(false);
     const paperStyle = { padding: '30px 20px' }
     const headerStyle = { margin: 0 }
     const avatarStyle = { backgroundColor: '#1bbd7e' }
@@ -45,6 +47,20 @@ export default function Test() {
     const handleClose = () => {
         setOpen(false);
     };
+    // const handleSubmit = () => {
+    //     setOpen(false);
+    // };
+
+
+    // const handleThankYouOpen = () => {
+    //     setThankYouOpen(true);
+    // };
+
+    // const handleThankYouClose = () => {
+    //     setThankYouOpen(false);
+    //     setOpen(false);
+    // };
+
     const initialValues = {
         name: '',
         email: '',
@@ -54,21 +70,6 @@ export default function Test() {
         confirmPassword: '',
         termsAndConditions: false
     }
-
-    const validationSchema = Yup.object().shape({
-        name: Yup.string().min(3, "It's too short").required("Empty Name Field"),
-        email: Yup.string().email("Enter valid email").required("Empty Email Field"),
-        gender: Yup.string().oneOf(["male", "female"], "Required").required("Required"),
-        phoneNumber: Yup.number().typeError("Enter valid Phone Number").required('Required'),
-        password: Yup.string().min(8, "Password minimum length should be 8").required("Required"),
-        confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Empty Conform Password Field"),
-        termsAndConditions: Yup.string().oneOf(["true"], "Accept terms & conditions")
-    })
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-
     const onSubmit = (values, props) => {
         console.log(values)
         console.log(props)
@@ -79,9 +80,22 @@ export default function Test() {
         }, 2000)
     }
 
+    // use Formik and Yup library to add validation in form:
+    const validationSchema = Yup.object().shape({
+        name: Yup.string().min(3, "It's too short").required("Empty Name Field"),
+        email: Yup.string().email("Enter valid email").required("Empty Email Field"),
+        gender: Yup.string().oneOf(["male", "female"], "Required").required("Required"),
+        phoneNumber: Yup.number().typeError("Enter valid Phone Number").required('Required'),
+        password: Yup.string().min(8, "Password minimum length should be 8").required("Required"),
+        confirmPassword: Yup.string().oneOf([Yup.ref('password')], "Password not matched").required("Empty Conform Password Field"),
+        termsAndConditions: Yup.string().oneOf(["true"], "Accept terms & conditions")
+    })
+
+
+
     return (
         <>
-            <Button variant="contained" onClick={handleOpen} sx={{ paddingLeft: "14px", bgcolor: "#800000" }}>NEXT</Button>
+            <Button variant="contained" onClick={handleOpen} sx={{ paddingLeft: "14px", bgcolor: "primary" }}>NEXT</Button>
             <Modal
                 open={open}
                 onClose={handleClose}
@@ -128,13 +142,43 @@ export default function Test() {
                                             label="I accept the terms and conditions."
                                         />
                                         <FormHelperText><ErrorMessage name="termsAndConditions" /></FormHelperText>
-                                            <Button onClick={handleClickOpen} type='submit' variant='contained' disabled={props.isSubmitting}
-                                                color='secondary'>{props.isSubmitting ? "Loading" : "Register"}</Button>
+                                        {/* <Button type='submit' variant='contained' disabled={props.isSubmitting}
+                                            color='secondary' onClick={handleThankYouOpen} >{props.isSubmitting ? "Loading" : "Register"}</Button> */}
+
+
+
+                                        <Button type='submit' variant='contained' disabled={props.isSubmitting}
+                                            color='secondary' >{props.isSubmitting ? "Loading" : "Register"}</Button>
+                                        <Button variant='contained' sx={{ margin: "10px" }} onClick={handleClose} color="secondary">
+                                            Close
+                                        </Button>
+                                        {/* <Dialog open={thankYouOpen} onClose={handleThankYouClose}>
+                                            <DialogTitle>
+                                                <Typography variant="h6" component="div">
+                                                    <GppGoodRoundedIcon color="secondary" fontSize="large" />
+                                                    Thank you for registering!
+                                                </Typography>
+                                            </DialogTitle>
+                                            <DialogContent>
+                                                <Typography variant="body1">
+                                                    We have received your registration and will be in touch soon.
+                                                </Typography>
+                                            </DialogContent>
+                                            <DialogActions>
+                                                <Button onClick={handleThankYouClose} color="primary">
+                                                    Close
+                                                </Button>
+                                                <Button onClick={handleSubmit} color="secondary">
+                                                    Submit
+                                                </Button>
+                                            </DialogActions>
+                                        </Dialog> */}
+
                                     </Form>
                                 )}
-                                 
+
                             </Formik>
-                           
+
                         </Paper>
                     </Grid>
 
